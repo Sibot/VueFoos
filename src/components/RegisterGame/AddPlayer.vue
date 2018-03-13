@@ -1,6 +1,10 @@
 <template>
   <v-card>
-    <v-card-title>Enter players</v-card-title>
+    <v-card-title primary-title>
+      <div class="headline">
+        Enter players
+      </div>
+    </v-card-title>
     <v-select
       chips
       tags
@@ -32,9 +36,9 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'AddPlayer',
-  props: ['players', 'step'],
+  props: ['players'],
   computed: {
-    ...mapGetters(['playersList', 'playersDb'])
+    ...mapGetters(['playersList'])
   },
   data () {
     return {

@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <h4>Assign players to a team</h4>
+  <v-card>
+    <v-card-title primary-title>
+      <div class="headline">
+        Assign players to a team
+      </div>
+    </v-card-title>
     <ul>
       <li v-for="player in players" :key="player.id">
         <div class="player">
@@ -24,7 +28,7 @@
       </div>
     </div>
     <v-btn color="primary" @click.native="updateStep">Continue</v-btn>
-  </div>
+  </v-card>
 </template>
 <script>
 export default {

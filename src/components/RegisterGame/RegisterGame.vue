@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <h1 class="headline text-xs-center">Register a game</h1>
     <v-slide-y-transition mode="out-in">
-      <v-layout column align-center>
+      <v-layout column>
         <v-flex d-flex xs12>
         <v-stepper v-model="step">
           <v-stepper-header>
@@ -16,16 +16,26 @@
           </v-stepper-header>
           <v-stepper-items>
             <v-stepper-content step="1">
-              <add-player :players="players" :step.sync="step" ></add-player>
+              <add-player
+                :players="players"
+                :step.sync="step" ></add-player>
             </v-stepper-content>
             <v-stepper-content step="2">
-              <assign-teams :step.sync="step" :players="players" :teams="teams"></assign-teams>
+              <assign-teams
+                :players="players"
+                :teams="teams"
+                :step.sync="step"></assign-teams>
             </v-stepper-content>
             <v-stepper-content step="3">
-              <team-score :step.sync="step" :teams="teams"></team-score>
+              <team-score
+                :teams="teams"
+                :step.sync="step"></team-score>
             </v-stepper-content>
             <v-stepper-content step="4">
-              <game-time :selectedDate="selectedDate" :enabledDatesFn="enabledDatesFn" :saveFn="saveGame" :disabledSaveFn="isInvalidGame"></game-time>
+              <game-time
+                :selectedDate.sync="selectedDate"
+                :saveFn="saveGame"
+                :disabledSaveFn="isInvalidGame"></game-time>
             </v-stepper-content>
           </v-stepper-items>
         </v-stepper>
@@ -36,10 +46,10 @@
 </template>
 
 <script>
-import AddPlayer from './RegisterGame/AddPlayer'
-import AssignTeams from './RegisterGame/AssignTeams'
-import TeamScore from './RegisterGame/TeamScore'
-import GameTime from './RegisterGame/GameTime'
+import AddPlayer from './AddPlayer'
+import AssignTeams from './AssignTeams'
+import TeamScore from './TeamScore'
+import GameTime from './GameTime'
 
 export default {
   name: 'RegisterGame',
@@ -54,14 +64,12 @@ export default {
       step: 0,
       players: [],
       teams: [],
-      selectedDate: new Date(),
-      enabledDatesFn: function (date) {
-        return date < new Date()
-      }
+      selectedDate: null
     }
   },
   created () {
     this.init()
+    this.selectedDate = this.getDate()
   },
   computed: {
     isInvalidGame: function () {
@@ -102,11 +110,16 @@ export default {
         { id: 1, score: 0, players: [], isWinner: false },
         { id: 2, score: 0, players: [], isWinner: false }
       ]
+      this.step = 0
     },
     saveGame: function () {
       this.$store.dispatch('saveGame', this.game)
-      console.log(this.game)
       this.init()
+    },
+    getDate () {
+      const toTwoDigits = num => num < 10 ? '0' + num : num
+      let today = new Date()
+      return `${today.getFullYear()}-${toTwoDigits(today.getMonth() + 1)}-${toTwoDigits(today.getDate())}`
     }
   }
 }

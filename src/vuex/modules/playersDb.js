@@ -11,14 +11,10 @@ let playersRef = db.ref('players/')
 // })
 
 const state = {
-  playersDb: playersRef,
   playersList: []
 }
 
 const getters = {
-  playersDb: state => {
-    return state.playersDb
-  },
   playersList: state => {
     return state.playersList
   }
