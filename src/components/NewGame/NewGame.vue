@@ -52,7 +52,7 @@ import TeamScore from './TeamScore'
 import GameTime from './GameTime'
 
 export default {
-  name: 'RegisterGame',
+  name: 'NewGame',
   components: {
     'add-player': AddPlayer,
     'assign-teams': AssignTeams,
