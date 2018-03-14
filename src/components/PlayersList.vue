@@ -3,6 +3,7 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line>
+          <v-subheader class="headline">Players</v-subheader>
           <template v-for="player in playersList">
             <v-list-tile avatar :key="player.key">
               <v-list-tile-avatar>
