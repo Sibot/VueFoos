@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import AppHeader from './components/AppHeader'
-import AppFooter from './components/AppFooter'
+import AppHeader from './components/AppStructure/AppHeader'
+import AppFooter from './components/AppStructure/AppFooter'
 
 export default {
   name: 'App',
