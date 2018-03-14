@@ -17,5 +17,6 @@ const store = new Vuex.Store({
 })
 
 store.dispatch('initPlayers')
+store.dispatch('initGames')
 
 export default store

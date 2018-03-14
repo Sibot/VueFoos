@@ -1,14 +1,7 @@
 import firebase from '../../firebaseInit'
 
 let db = firebase.database()
-let playersRef = db.ref('players/')
-
-// playersRef.on('value', function (snapshot) {
-//   state.playersList = []
-//   snapshot.forEach(snap => {
-//     actions.addPlayer({ key: snap.key, name: snap.val() })
-//   })
-// })
+let playersRef = db.ref('players')
 
 const state = {
   playersList: []
@@ -25,7 +18,7 @@ const mutations = {
     state.playersList.push(player)
   },
   savePlayer (state, player) {
-    state.playersDb.push(player)
+    playersRef.push(player)
   },
   clearPlayersList (state) {
     state.playersList = []
@@ -33,19 +26,18 @@ const mutations = {
 }
 
 const actions = {
-  savePlayer (context, player) {
-    context.commit('savePlayer', player)
-  },
-  addPlayer (context, player) {
-    context.commit('addPlayer', player)
-  },
   initPlayers (context) {
     playersRef.on('value', function (snapshot) {
+      console.log(snapshot)
       context.commit('clearPlayersList')
       snapshot.forEach(snap => {
+        console.log(snap.val())
         context.commit('addPlayer', { key: snap.key, name: snap.val() })
       })
     })
+  },
+  savePlayer (context, player) {
+    context.commit('savePlayer', player)
   }
 }
 
